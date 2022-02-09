@@ -62,3 +62,69 @@
    53  docker run -d --name=c1 httpd
    54  docker ps -a
    55  history
+ 71  docker ps
+   72  docker rm c1
+   73  docker rm -f c1
+   74  docker rm -f c2
+   75  docker rm -f c3
+   76  clear
+   77  docker run -d --name=c1 --hostname=c1.bosch.com --cpus="0.0000001" --memory=10Mi -p 8080:80 httpd
+   78  docker ps
+   79  docker run -d --name=c2 --hostname=c1.bosch.com --cpus="0.0000001" --memory=10M -p 8080:80 httpd
+   80  docker run -d --name=c3 --hostname=c1.bosch.com --cpus="0.0000001" --memory=20M -p 8080:80 httpd
+   81  docker ps
+   82  docker exec -it c3 bash
+   83  docker ps
+   84  docker exec -it c3 sh
+   85  docker exec -it c3 /bin/sh
+   86  docker exec -it c3 /bin/bash
+   87  docker ps
+   88  which bash
+   89  which sh
+   90  docker exec -it c3 /bin/bash
+   91  history
+   92  docker run -d --name=biryani -p 8081:80 kharatramesh/vadapavimages:biryani
+   93  docker ps
+   94  clear
+   95  docker run -d --name=db1 -e MYSQL_ROOT_PASSWORD=123 mysql
+   96  docker ps -a
+   97  docker exec -it db1 /bin/bash
+   98  history
+   99  docker run -d --name=db2 -e MYSQL_ROOT_PASSWORD=123 -p 3307:3306 mysql
+  100  exit
+  101  docker ps
+  102  mkdir data
+  103  cd data/
+  104  touch index.html
+  105  echo "My Source Code" > index.html
+  106  ls
+  107  docker run -d --name=v1 -v /data:/usr/share/nginx/html -p 9090:80 nginx
+  108  docker ps
+  109  pwd
+  110  docker run -d --name=v2 -v /root/data:/usr/share/nginx/html -p 9091:80 nginx
+  111  echo "Hello Friends , welcome to docker volumes" > index.html
+  112  docker inspect c3 | grep -i ipadd
+  113  curl "172.17.0.2"
+  114  clear
+  115  # dockerfile -to create image
+  116  mkdir /dockerfiles
+  117  cd /dockerfiles/
+  118  touch 1.dockerfile
+  119  touch one.df
+  120  vi one.df
+  121  touch 1.txt
+  122  tar -cvf /home 1.tar
+  123  tar -cvf 1.tar /home
+  124  ls
+  125  vi index.html
+  126  clear
+  127  cat one.df
+  128  docker build . -f one.df -t kharatramesh/vadapavimages:pavbhaji
+  129  docker images
+  130  docker run -d --name=pavbhaji -p 8585:80 kharatramesh/vadapavimages:pavbhaji
+  131  docker ps
+  132  docker push kharatramesh/vadapavimages:pavbhaji
+  133  docker logout
+  134  docker login
+  135  docker push kharatramesh/vadapavimages:pavbhaji
+  136  history
