@@ -15,3 +15,50 @@
 # sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 # systemctl enable --now docker
+  9  docker ps
+   10  docker images
+   11  # images
+   12  docker search mysql
+   13  clear
+   14  docker search java --limit=5 -f is-official=true
+   15  docker search java --limit=5 -f is-official=true -f stars=300
+   16  docker search httpd --limit=5 -f is-official=true -f stars=300
+   17  docker search nginx --limit=5 -f is-official=true -f stars=300
+   18  docker search postgres --limit=5 -f is-official=true -f stars=300
+   19  docker search mongodb --limit=5 -f is-official=true -f stars=300
+   20  docker images
+   21  docker pull httpd
+   22  docker pull registry.redhat.io/rhel8/nginx-118:1-51
+   23  docker login registry.redhat.io
+   24  docker pull registry.redhat.io/rhel8/nginx-118:1-51
+   25  docker images
+   26  docker pull mysql
+   27  docker pull centos:7
+   28  docker images
+   29  clear
+   30  docker images
+   31  docker container create --name=c1 httpd
+   32  docker ps -a
+   33  docker container create --name=c2 httpd
+   34  docker container create --name=c3 httpd
+   35  docker ps -a
+   36  docker start c1
+   37  docker start c2
+   38  docker start c3
+   39  docker ps -a
+   40  docker stop c1
+   41  docker stop c2
+   42  docker stop c3
+   43  docker ps -a
+   44  docker rm c1
+   45  docker rm c12
+   46  docker rm c2
+   47  docker ps -a
+   48  docker start c3
+   49  docker ps -a
+   50  docker pause c3
+   51  docker ps -a
+   52  docker unpause c3
+   53  docker run -d --name=c1 httpd
+   54  docker ps -a
+   55  history
