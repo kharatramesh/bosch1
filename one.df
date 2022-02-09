@@ -1,0 +1,21 @@
+FROM centos:7
+MAINTAINER "Admin Bosch"
+LABEL "app"="prod"
+WORKDIR /A
+WORKDIR /A/B
+
+COPY 1.txt /A
+ADD 1.tar /A/B
+ADD https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.76-installer.msi /A
+
+RUN yum install httpd -y && yum install tree -y && yum install screen -y
+
+RUN systemctl enable httpd
+
+COPY index.html /var/www/html
+
+EXPOSE 80
+
+VOLUME v1
+
+CMD ["httpd","-D","FOREGROUND"]
