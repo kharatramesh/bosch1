@@ -1,4 +1,3 @@
-[root@vm1 folder1]# cat vm.tf
 terraform {
   required_providers {
     azurerm = {
@@ -66,7 +65,7 @@ resource "azurerm_network_security_group" "nsg1" {
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "22,80,443,3306"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -78,15 +77,15 @@ resource "azurerm_network_security_group" "nsg1" {
 
 # Create network interface
 resource "azurerm_network_interface" "myterraformnic" {
-  name                = "myNIC"
+  name                = "mynic"
   location            = "eastus"
   resource_group_name = "rg1"
 
   ip_configuration {
     name                          = "myNicConfiguration"
-    subnet_id                     = azurerm_subnet.myterraformsubnet.id
+    subnet_id                     = azurerm_subnet.vnet1-subnet1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.myterraformpublicip.id
+    public_ip_address_id          = azurerm_public_ip.publicip1.id
   }
 
   tags = {
@@ -97,7 +96,7 @@ resource "azurerm_network_interface" "myterraformnic" {
 # Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "example" {
   network_interface_id      = azurerm_network_interface.myterraformnic.id
-  network_security_group_id = azurerm_network_security_group.myterraformnsg.id
+  network_security_group_id = azurerm_network_security_group.nsg1.id
 }
 
 # Generate random text for a unique storage account name
@@ -154,7 +153,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm" {
     version   = "latest"
   }
 
-  computer_name  = "terraform_vm1"
+  computer_name  = "vm11"
   admin_username = "azureuser"
   admin_password = "Bosch@12345678"
 
@@ -164,12 +163,4 @@ resource "azurerm_linux_virtual_machine" "myterraformvm" {
   #    username       = "azureuser"
   #   public_key     = tls_private_key.example_ssh.public_key_openssh
   # }
-
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.mystorageaccount.primary_blob_endpoint
-  }
-
-  tags = {
-    environment = "Terraform Demo"
-  }
 }
